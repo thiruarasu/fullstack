@@ -1,0 +1,37 @@
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres       # Set your PostgreSQL username
+      POSTGRES_PASSWORD: admin123 # Set your PostgreSQL password
+      PGDATA: /data/postgres     # Set the default database name
+    volumes:
+      - postgres:/data/postgres  
+    ports:
+      - "5433:5432"  # Expose PostgreSQL on port 5432            
+    networks:
+      - postgres
+    restart: unless-stopped
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}       # Set your PostgreSQL username
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin123}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'     # Set the default database name
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped	
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:

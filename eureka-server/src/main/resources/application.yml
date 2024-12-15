@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile:
+      - local
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false 

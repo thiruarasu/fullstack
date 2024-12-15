@@ -1,0 +1,9 @@
+server:
+  port: 9013
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: ORDER-SERVICE
+
